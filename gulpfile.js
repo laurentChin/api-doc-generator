@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     util = require('gulp-util'),
     prompt = require('gulp-prompt'),
     jsonfile = require('jsonfile'),
+    template = require('gulp-template'),
     apiDescription;
 
 gulp.task('default', function(done){
@@ -110,7 +111,9 @@ gulp.task('html', function(){
         {read: false}
     );
 
-    return target.pipe(inject(sources))
+    return target
+        .pipe(template(apiDescription))
+        .pipe(inject(sources))
         .pipe(gulp.dest('./build'));
 });
 
