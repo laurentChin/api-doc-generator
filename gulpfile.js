@@ -35,3 +35,9 @@ gulp.task('html', function(){
     return target.pipe(inject(sources))
         .pipe(gulp.dest('./build'));
 });
+
+gulp.task('watch', function () {
+    gulp.watch('./src/**/*.js', ['js']);
+    gulp.watch('./src/**/*.scss', ['sass']);
+    gulp.watch('./src/**/*.html', ['html']);
+});
