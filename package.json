@@ -11,5 +11,8 @@
   "bugs": {
     "url": "https://github.com/laurentChin/api-doc-generator/issues"
   },
-  "homepage": "https://github.com/laurentChin/api-doc-generator#readme"
+  "homepage": "https://github.com/laurentChin/api-doc-generator#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }
