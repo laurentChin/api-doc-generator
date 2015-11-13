@@ -21,3 +21,17 @@ gulp.task('sass', function () {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./build/css/stylesheet.css'));
 });
+
+gulp.task('html', function(){
+    var target = gulp.src('./src/html/index.html');
+    var sources = gulp.src(
+        [
+            './build/js/app.js',
+            './build/css/stylesheet.css'
+        ],
+        {read: false}
+    );
+
+    return target.pipe(inject(sources))
+        .pipe(gulp.dest('./build'));
+});
