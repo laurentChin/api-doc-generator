@@ -1,0 +1,24 @@
+{
+  "name": "api-doc-generator",
+  "description": "An API documentation based on JSON description",
+  "main": "",
+  "authors": [
+    "Laurent Janet"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/laurentChin/api-doc-generator",
+  "moduleType": [
+    "es6"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}
