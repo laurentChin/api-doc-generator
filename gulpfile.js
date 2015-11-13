@@ -14,3 +14,10 @@ gulp.task('js', function(){
         .pipe(eslint.format())
         .pipe(gulp.dest('./build/js/app.js'));
 });
+
+gulp.task('sass', function () {
+    return gulp.src('./src/sass/**/*.scss')
+        .pipe(plumber())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./build/css/stylesheet.css'));
+});
