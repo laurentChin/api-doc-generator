@@ -6,6 +6,13 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     runSequence = require('run-sequence');
 
+gulp.task('build', function(){
+    runSequence(
+        ['js', 'sass'],
+        'html'
+    );
+});
+
 gulp.task('js', function(){
     return gulp.src('./src/js/app.js')
         .pipe(plumber())
