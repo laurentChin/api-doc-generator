@@ -4,23 +4,72 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     plumber = require('gulp-plumber'),
     inject = require('gulp-inject'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    fs = require('fs'),
+    util = require('gulp-util'),
+    prompt = require('gulp-prompt'),
+    jsonfile = require('jsonfile');
 
 gulp.task('default', function(done){
     "use strict";
     runSequence(
         'build',
-        'watch'
+        'watch',
+        done
     );
 });
 
 gulp.task('build', function(done){
     "use strict";
     runSequence(
+        'check-description-file',
         ['js', 'sass'],
         'html',
         done
     );
+});
+
+gulp.task('check-description-file', function(done){
+    "use strict";
+    var title, description,
+        descriptionFile = './api.description.json',
+        templateFile = './api.description.json.dist';
+
+    // look for api.description.js
+    if(!fs.existsSync(descriptionFile)) {
+        // the file does not exist create it by copying the template one
+        util.log(util.colors.cyan("api.description.js"), "does not exist creating a new one based on default template");
+        gulp.src(templateFile)
+            .pipe(plumber())
+            .pipe(prompt.prompt([
+                {
+                    'type': 'input',
+                    'name': 'title',
+                    'message' : 'Please give a title for your documentation'
+                },
+                {
+                    'type': 'input',
+                    'name': 'description',
+                    'default': '',
+                    'message' : 'Please give a description for your documentation'
+                }
+            ], function(result){
+                var templateData = jsonfile.readFileSync(templateFile, 'utf8');
+                // upate title and description with user inputs
+                templateData.title = result.title;
+                templateData.description = result.description;
+
+                jsonfile.writeFileSync(
+                    descriptionFile,
+                    templateData,
+                    {
+                        spaces: 2
+                    }
+                );
+
+                done();
+            }));
+    }
 });
 
 gulp.task('js', function(){

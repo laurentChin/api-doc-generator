@@ -31,4 +31,7 @@ node_modules
 # Compiled sources
 build/
 
+# API description file
+api.description.json
+
 # Created by .ignore support plugin (hsz.mobi)
