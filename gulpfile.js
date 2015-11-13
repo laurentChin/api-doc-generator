@@ -6,21 +6,25 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     runSequence = require('run-sequence');
 
-gulp.task('default', function(){
+gulp.task('default', function(done){
+    "use strict";
     runSequence(
         'build',
         'watch'
     );
 });
 
-gulp.task('build', function(){
+gulp.task('build', function(done){
+    "use strict";
     runSequence(
         ['js', 'sass'],
-        'html'
+        'html',
+        done
     );
 });
 
 gulp.task('js', function(){
+    "use strict";
     return gulp.src('./src/js/app.js')
         .pipe(plumber())
         .pipe(babel())
@@ -30,6 +34,7 @@ gulp.task('js', function(){
 });
 
 gulp.task('sass', function () {
+    "use strict";
     return gulp.src('./src/sass/**/*.scss')
         .pipe(plumber())
         .pipe(sass().on('error', sass.logError))
@@ -37,6 +42,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('html', function(){
+    "use strict";
     var target = gulp.src('./src/html/index.html');
     var sources = gulp.src(
         [
@@ -51,6 +57,7 @@ gulp.task('html', function(){
 });
 
 gulp.task('watch', function () {
+    "use strict";
     gulp.watch('./src/**/*.js', ['js']);
     gulp.watch('./src/**/*.scss', ['sass']);
     gulp.watch('./src/**/*.html', ['html']);
