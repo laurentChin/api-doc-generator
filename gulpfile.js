@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     fs = require('fs'),
     util = require('gulp-util'),
     prompt = require('gulp-prompt'),
-    jsonfile = require('jsonfile');
+    jsonfile = require('jsonfile'),
+    apiDescription;
 
 gulp.task('default', function(done){
     "use strict";
@@ -23,6 +24,7 @@ gulp.task('build', function(done){
     "use strict";
     runSequence(
         'check-description-file',
+        'read-description-file',
         ['js', 'sass'],
         'html',
         done
@@ -69,7 +71,14 @@ gulp.task('check-description-file', function(done){
 
                 done();
             }));
+    } else {
+        done();
     }
+});
+
+gulp.task('read-description-file', function(){
+    "use strict";
+    apiDescription = jsonfile.readFileSync('./api.description.json');
 });
 
 gulp.task('js', function(){
